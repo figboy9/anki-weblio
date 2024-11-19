@@ -1,0 +1,10 @@
+[package]
+name = "anki-weblio"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.93"
+reqwest = {version = "0.12.9", features = ["blocking", "json"]}
+scraper = "0.21.0"
+serde = { version = "1.0.215", features = ["derive"] }
