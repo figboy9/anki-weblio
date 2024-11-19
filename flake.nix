@@ -55,10 +55,11 @@
         apps.default = flake-utils.lib.mkApp {
           drv = self.packages.${system}.default;
         };
-
-        overlays.default = final: prev: {
-          anki-weblio = final.callPackage ./default.nix { inherit rustPlatform; };
-        };
       }
-    );
+    )
+    // {
+      overlays.default = final: prev: {
+        anki-weblio = final.callPackage ./default.nix { };
+      };
+    };
 }
