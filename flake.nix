@@ -66,6 +66,10 @@
         apps.default = flake-utils.lib.mkApp {
           drv = self.packages.${system}.default;
         };
+
+        overlays.default = final: prev: {
+          anki-weblio = self.packages.${system}.default;
+        };
       }
     );
 }
