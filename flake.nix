@@ -50,25 +50,14 @@
             LD_LIBRARY_PATH = lib.makeLibraryPath [ openssl ];
           };
 
-        packages.default =
-          with pkgs;
-          rustPlatform.buildRustPackage {
-            pname = "anki-weblio";
-            version = "0.1.0";
-
-            buildInputs = [ openssl ];
-            nativeBuildInputs = [ pkg-config ];
-
-            src = ./.;
-            cargoLock.lockFile = ./Cargo.lock;
-          };
+        packages.default = pkgs.callPackage ./default.nix { inherit rustPlatform; };
 
         apps.default = flake-utils.lib.mkApp {
           drv = self.packages.${system}.default;
         };
 
         overlays.default = final: prev: {
-          anki-weblio = self.packages.${system}.default;
+          anki-weblio = final.callPackage ./default.nix { inherit rustPlatform; };
         };
       }
     );
